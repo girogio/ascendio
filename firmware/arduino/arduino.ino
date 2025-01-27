@@ -1,7 +1,7 @@
 #include "pins.h"
 #include "lever.h"
 
-
+c:\Users\giorg\diythrust\firmware\arduino\lever.h
 enum Commands
 {
     INIT = 0x4C,
@@ -10,9 +10,9 @@ enum Commands
 };
 
 Lever ENG1(RV_ENG1_PIN, DAT0_ENG1_PIN, DAT1_ENG1_PIN, M_SPD_ENG1_PIN);
-Lever ENG2(RV_ENG2_PIN, DAT0_ENG2_PIN, DAT1_ENG2_PIN, M_SPD_ENG2_PIN);
-Lever FLP(RV_FLP_PIN, DAT0_FLP_PIN, DAT1_FLP_PIN, M_SPD_FLP_PIN);
-Lever BRK(RV_BRK_PIN, DAT0_BRK_PIN, DAT1_BRK_PIN, M_SPD_BRK_PIN);
+// Lever ENG2(RV_ENG2_PIN, DAT0_ENG2_PIN, DAT1_ENG2_PIN, M_SPD_ENG2_PIN);
+// Lever FLP(RV_FLP_PIN, DAT0_FLP_PIN, DAT1_FLP_PIN, M_SPD_FLP_PIN);
+// Lever BRK(RV_BRK_PIN, DAT0_BRK_PIN, DAT1_BRK_PIN, M_SPD_BRK_PIN);
 
 bool handshakeDone = false;
 
@@ -21,9 +21,9 @@ void setup()
     Serial.begin(9600);
 
     ENG1.setup();
-    ENG2.setup();
-    FLP.setup();
-    BRK.setup();
+    // ENG2.setup();
+    // FLP.setup();
+    // BRK.setup();
 }
 
 void loop()

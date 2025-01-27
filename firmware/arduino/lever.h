@@ -1,20 +1,23 @@
+#ifndef LEVER_H
+#define LEVER_H
+
 #include "pins.h"
 
 class Lever
 {
 
 private:
+    int RV_PIN;
+    int MOT_DAT0_PIN;
+    int MOT_DAT1_PIN;
+    int MOT_SPD_PIN;
+
     int readings[READ_CNT];
     int total = 0;
     int average = 0;
     int readIndex = 0;
 
 public:
-    int RV_PIN;
-    int MOT_DAT0_PIN;
-    int MOT_DAT1_PIN;
-    int MOT_SPD_PIN;
-
     Lever(int rv_pin, int mot_dat0_pin, int mot_dat1_pin, int mot_spd_pin)
     {
         RV_PIN = rv_pin;
@@ -31,9 +34,7 @@ public:
         pinMode(MOT_SPD_PIN, OUTPUT);
 
         for (int i = 0; i < READ_CNT; i++)
-        {
             readings[i] = 0;
-        }
     }
 
     int readValue()
@@ -51,3 +52,5 @@ public:
         return average;
     }
 };
+
+#endif

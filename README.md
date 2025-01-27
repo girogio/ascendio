@@ -16,7 +16,7 @@ The hardware is based on the following components:
 
 | Quantity | Component                                                                                     | Description                                           |
 | -------- | --------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
-| 1        | Arduino Nano                                                                                  | Microcontroller board                                 |
+| 1        | Teensy 3.2                                                                                    | Microcontroller board                                 |
 | 4        | [Motorized Slider Potentiometer](https://tech.alpsalpine.com/e/products/detail/RSA0N11M9A0K/) | Alps RSA0N11M9A0K                                     |
 | 2        | [L293D](https://www.ti.com/product/L293D)                                                     | Dual full H-bridge motor driver for potentiometers    |
 | 1        | 100nF Capacitor                                                                               | Decoupling capacitor for the motorized potentiometers |
@@ -29,12 +29,8 @@ The hardware is based on the following components:
 
 The software for this projcet is split into two parts:
 
-- The firmware running on the Arduino Nano
+- The firmware running on the Teensy 3.2
 - The software running on the host computer to interface with the Arduino Nano and the flight simulator
-
-Mostly because I don't have an Arduino Nano that has HID capabilities, the
-software will include a serial protocol to relay data between the host computer
-and the Arduino Nano and then emulate a joystick on the host computer.
 
 ## License
 
