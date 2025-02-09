@@ -5,7 +5,7 @@ import "./App.scss";
 function App() {
   return (
     <main>
-      <p>Hi, I'm Ascendio!</p>
+      <p style={{ fontSize: 32 }}>Hi, I'm Ascendio!</p>
       <StatusBar />
     </main>
   );
