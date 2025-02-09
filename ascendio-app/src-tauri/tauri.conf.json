@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "ascendio-app",
+  "productName": "Ascendio",
   "version": "0.1.0",
   "identifier": "com.ascendio.gr",
   "build": {
@@ -12,9 +12,12 @@
   "app": {
     "windows": [
       {
-        "title": "ascendio-app",
+        "title": "Ascendio",
         "width": 800,
-        "height": 600
+        "height": 600,
+        "minWidth": 900,
+        "minHeight": 600,
+        "decorations": false
       }
     ],
     "security": {
