@@ -18,13 +18,13 @@
     border: none;
     outline: none;
 
-    color: var(--textPrimary);
+    color: var(--textSecondary);
     font-size: 18px;
 
     padding: 3px 8px;
     border-radius: var(--borderRadius);
 
-    transition: background-color 150ms var(--easingFunction);
+    transition: color 150ms var(--easingFunction);
 
     display: flex;
     justify-content: center;
@@ -33,10 +33,10 @@
 
     &:hover {
         cursor: pointer;
-        background-color: var(--bgHighlight);
+        color: var(--textPrimary);
     }
 }
 
 .navitem-selected {
-    background-color: var(--bgHighlight);
+    color: var(--textPrimary);
 }
