@@ -1,13 +1,17 @@
+import TitleBar from "./components/TitleBar";
 import StatusBar from "./components/StatusBar";
 
 import "./App.scss";
 
 function App() {
   return (
-    <main>
-      <p style={{ fontSize: 32 }}>Hi, I'm Ascendio!</p>
+    <div className="app-root">
+      <TitleBar />
+      <main>
+        <p style={{ fontSize: 32 }}>Hi, I'm Ascendio!</p>
+      </main>
       <StatusBar />
-    </main>
+    </div>
   );
 }
 
