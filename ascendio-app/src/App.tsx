@@ -1,56 +1,50 @@
-import "./App.css";
-
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/core";
-
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectLabel,
-  SelectGroup,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+import "./App.css";
 
 function App() {
   const [greetMsg, setGreetMsg] = useState("");
-  const [eventName, setEventName] = useState("");
+  const [name, setName] = useState("");
 
   async function greet() {
-    const message: string = await invoke("send_event");
-    setGreetMsg(message);
-  }
-
-  async function checkconnection() {
-    setGreetMsg("Checking Connection...");
-    const message: string = await invoke("is_connected");
-    message ? setGreetMsg("Connected") : setGreetMsg("Not Connected");
+    // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
+    setGreetMsg(await invoke("greet", { name }));
   }
 
   return (
-    <main className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
+    <main className="container">
+      <h1>Welcome to Tauri + React</h1>
 
+      <div className="row">
+        <a href="https://vitejs.dev" target="_blank">
+          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
+        </a>
+        <a href="https://tauri.app" target="_blank">
+          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
+        </a>
+        <a href="https://reactjs.org" target="_blank">
+          <img src={reactLogo} className="logo react" alt="React logo" />
+        </a>
+      </div>
+      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
 
-      <Select>
-        <SelectTrigger className="w-[180px]">
-          < SelectValue placeholder="Select a fruit" />
-        </SelectTrigger >
-        <SelectContent>
-          <SelectGroup>
-            <SelectLabel>Fruits</SelectLabel>
-            <SelectItem value="apple">Apple</SelectItem>
-            <SelectItem value="banana">Banana</SelectItem>
-            <SelectItem value="blueberry">Blueberry</SelectItem>
-            <SelectItem value="grapes">Grapes</SelectItem>
-            <SelectItem value="pineapple">Pineapple</SelectItem>
-          </SelectGroup>
-        </SelectContent>
-      </Select >
-
-
+      <form
+        className="row"
+        onSubmit={(e) => {
+          e.preventDefault();
+          greet();
+        }}
+      >
+        <input
+          id="greet-input"
+          onChange={(e) => setName(e.currentTarget.value)}
+          placeholder="Enter a name..."
+        />
+        <button type="submit">Greet</button>
+      </form>
       <p>{greetMsg}</p>
-    </main >
+    </main>
   );
 }
 
