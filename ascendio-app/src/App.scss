@@ -1,0 +1,50 @@
+@import url(./Fonts.scss);
+
+* {
+    font-family: "Poppins";
+    font-weight: 400;
+}
+
+:root {
+    //Colours
+    --primary: #3b82f6;
+    --primaryDark: #2474f5;
+    --textPrimary: #fafafa;
+    --textSecondary: #a1a1a1;
+    --bgPage: #09090b;
+    --bgHighlight: #27272a;
+    --btn: #fafafa;
+    --btnHover: #e2e2e2;
+    --border: #27272a;
+
+    --borderRadius: 6px
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bgPage);
+    margin: 0;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    color: var(--textPrimary);
+}
+
+main {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
