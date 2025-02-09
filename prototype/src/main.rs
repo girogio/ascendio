@@ -22,7 +22,7 @@ fn main() -> io::Result<()> {
     let mut actual_port: Option<Box<dyn SerialPort>> = None;
 
     for p in ports {
-        let mut port = match serialport::new(&p.port_name, 9600)
+        let mut port = match serialport::new(&p.port_name, 15200)
             .timeout(std::time::Duration::from_millis(10))
             .open()
         {
@@ -34,12 +34,8 @@ fn main() -> io::Result<()> {
 
         let timeout = std::time::Instant::now();
 
-        // port.write_data_terminal_ready(false)?;
-        // std::thread::sleep(std::time::Duration::from_millis(100));
-        // port.write_data_terminal_ready(true)?;
-
         while timeout.elapsed().as_secs() < 1 {
-            let _ = port.write(&[Commands::HandshakeInit as u8]);
+            let _ = port.write(&[1, Commands::HandshakeInit as u8]);
 
             if port.read(&mut buf).is_ok() {
                 actual_port = Some(port);
@@ -53,8 +49,13 @@ fn main() -> io::Result<()> {
         return Ok(());
     }
 
+    println!(
+        "Connected to port {:?}",
+        actual_port.as_ref().unwrap().name()
+    );
+
     let mut port = actual_port.unwrap();
-    send_data(&mut port, &[Commands::HandshakeInit as u8]);
+    send_data(&mut port, &[1, Commands::HandshakeInit as u8]);
 
     // Main loop
 
