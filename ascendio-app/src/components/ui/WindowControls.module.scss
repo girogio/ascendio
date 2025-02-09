@@ -1,0 +1,41 @@
+$colourChangeDuration: 0.2s;
+
+.root {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn {
+    height: 100%;
+    padding: 0 10px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+        cursor: pointer;
+        background-color: var(--bgHighlight);
+    }
+}
+
+.btn-anim {
+    transition: background-color $colourChangeDuration;
+}
+
+.close {
+    &:hover {
+        background-color: #e81123;
+    }
+
+    &:active {
+        background-color: #e36571;
+    }
+}
