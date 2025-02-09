@@ -1,6 +1,8 @@
+import styles from "./Settings.module.scss";
+
 const Settings = () => {
     return (
-        <div>
+        <div className={styles["root"]}>
             <p style={{ fontSize: 32 }}>This is the <b>Settings</b> page.</p>
         </div>
     );

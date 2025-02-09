@@ -20,7 +20,8 @@
     --status-green: #28af3e;
     --status-red: #c0323e;
 
-    --borderRadius: 6px
+    --borderRadius: 6px;
+    --easingFunction: cubic-bezier(.4, 0, .2, 1);
 }
 
 body {
@@ -59,6 +60,9 @@ img {
     width: 100vw;
     height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
 }

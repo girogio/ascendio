@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import TitleBar from "./components/TitleBar";
+import Navbar from "./components/Navbar";
 import StatusBar from "./components/StatusBar";
 
 import Home from "./pages/Home";
@@ -12,14 +13,15 @@ function App() {
     return (
         <div className="app-root">
             <TitleBar />
-            <main>
-                <BrowserRouter>
+            <BrowserRouter>
+                <Navbar />
+                <main>
                     <Routes>
                         <Route path="/" element={<Home />} />
                         <Route path="/settings" element={<Settings />} />
                     </Routes>
-                </BrowserRouter>
-            </main>
+                </main>
+            </BrowserRouter>
             <StatusBar />
         </div>
     );
