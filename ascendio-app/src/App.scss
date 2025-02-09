@@ -41,6 +41,17 @@ h6 {
     color: var(--textPrimary);
 }
 
+img {
+    -webkit-user-drag: none;
+}
+
+@media (prefers-reduced-motion) {
+    * {
+        transition: none !important;
+        animation-duration: 0s !important;
+    }
+}
+
 main {
     width: 100vw;
     height: 100vh;
