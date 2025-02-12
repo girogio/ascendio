@@ -1,7 +1,6 @@
-use std::sync::Mutex;
+use log::{debug, info};
 
-use log::{debug, error, info};
-use serialport::{available_ports, SerialPort};
+use tokio_serial::SerialPort;
 
 use crate::{
     errors::{Result, SerialError},
@@ -9,7 +8,18 @@ use crate::{
 };
 
 pub struct MCU {
-    pub serial_port: Option<Mutex<Box<dyn SerialPort + Send>>>,
+    pub serial_port: Option<Box<dyn SerialPort>>,
+}
+
+impl Clone for MCU {
+    fn clone(&self) -> Self {
+        Self {
+            serial_port: match &self.serial_port {
+                Some(port) => Some(port.try_clone().unwrap()),
+                None => None,
+            },
+        }
+    }
 }
 
 impl MCU {
@@ -17,38 +27,36 @@ impl MCU {
         Self { serial_port: None }
     }
 
-    pub fn send_command(&mut self, command: Command) -> Result<()> {
-        if let Some(port) = &self.serial_port {
-            let mut port = port.lock().unwrap();
-            port.write(&command.to_bytes())?;
-            debug!("Sending command: {:?}", command);
-            Ok(())
-        } else {
-            Err(SerialError::DeviceNotFound.into())
+    pub fn get_mut_serial_port(&mut self) -> Result<&mut Box<dyn SerialPort>> {
+        match &mut self.serial_port {
+            Some(port) => Ok(port),
+            None => Err(SerialError::DeviceNotFound.into()),
         }
+    }
+
+    pub fn send_command(&mut self, command: Command) -> Result<()> {
+        let port = self.get_mut_serial_port()?;
+
+        port.write(&command.to_bytes())?;
+        Ok(())
     }
 
     pub async fn wait_for_command(&mut self, command: Command) -> Result<()> {
-        if let Some(port) = &self.serial_port {
-            let mut port = port.lock().unwrap();
+        let port = self.get_mut_serial_port()?;
 
-            // try and cast the read result to a command
-            let mut buf: Vec<u8> = vec![0; 1];
-            let mut command_type = Command::Unknown;
+        let mut buf: Vec<u8> = vec![0; 1];
+        let mut command_type = Command::Unknown;
 
-            while command_type != command {
-                port.read(&mut buf)?;
-                command_type = Command::from_bytes(&buf);
-            }
-
-            Ok(())
-        } else {
-            Err(SerialError::DeviceNotFound.into())
+        while command_type != command {
+            port.read(&mut buf)?;
+            command_type = Command::from_bytes(&buf);
         }
+
+        Ok(())
     }
 
     pub fn try_connect(&mut self, baud_rate: u32) -> Result<bool> {
-        let ports = available_ports()?;
+        let ports = tokio_serial::available_ports()?;
 
         debug!("Trying to connect to MCU");
         debug!("Available ports: {:?}", ports);
@@ -79,7 +87,7 @@ impl MCU {
 
                 if Command::from_bytes(&buf) == Command::InitAck {
                     info!("Connected to MCU on port: {}", p.port_name);
-                    self.serial_port = Some(Mutex::new(port));
+                    self.serial_port = Some(port);
                     return Ok(true);
                 }
             }
@@ -88,17 +96,28 @@ impl MCU {
         Ok(false)
     }
 
+    pub fn disconnect(&mut self) -> Result<()> {
+        self.serial_port = None;
+
+        Ok(())
+    }
+
     pub fn is_connected(&mut self) -> bool {
         let mut buf = vec![0; 1];
-        if self.send_command(Command::Health).is_ok() {
-            if let Some(port) = &self.serial_port {
-                let mut port = port.lock().unwrap();
 
-                if port.read_exact(&mut buf).is_ok() {
-                    if Command::from_bytes(&buf) == Command::HealthAck {
-                        return true;
-                    }
-                }
+        if let Some(port) = &mut self.serial_port {
+            let command = Command::Health;
+
+            if port.write(&command.to_bytes()).is_err() {
+                return false;
+            }
+
+            if port.read(&mut buf).is_err() {
+                return false;
+            }
+
+            if Command::from_bytes(&buf) == Command::HealthAck {
+                return true;
             }
         }
 

@@ -8,6 +8,11 @@ import Home from "./pages/Home";
 import Settings from "./pages/Settings";
 
 import "./App.scss";
+import { invoke } from "@tauri-apps/api/core";
+
+function is_connected() {
+  invoke("try_connect", {});
+}
 
 function App() {
     return (
