@@ -1,0 +1,42 @@
+.root {
+    width: 100%;
+    height: 50px;
+
+    padding: 4px 10px;
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 8px;
+
+    border-bottom: 1px solid var(--border);
+}
+
+.navitem {
+    background: none;
+    border: none;
+    outline: none;
+
+    color: var(--textSecondary);
+    font-size: 18px;
+
+    padding: 3px 8px;
+    border-radius: var(--borderRadius);
+
+    transition: color 150ms var(--easingFunction);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+
+    &:hover {
+        cursor: pointer;
+        color: var(--textPrimary);
+    }
+}
+
+.navitem-selected {
+    color: var(--textPrimary);
+}
