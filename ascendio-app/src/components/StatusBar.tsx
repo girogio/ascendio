@@ -29,7 +29,7 @@ const StatusBar = () => {
 
     return (
         <div className={styles["root"]}>
-            <button className={styles["connect-btn"]} onClick={handleConnect}>Connect</button>
+            <button className={styles["connect-btn"]} onClick={handleConnect}>{mcuConnected ? "Disconnect" : "Connect"}</button>
             <StatusIndicator status={mcuConnected ? "green" : "red"} text="MCU" />
             <StatusIndicator status={simConnectConnected ? "green" : "red"} text="SimConnect" />
         </div >
