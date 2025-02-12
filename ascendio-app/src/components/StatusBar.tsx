@@ -8,6 +8,10 @@ import StatusIndicator from "./ui/StatusIndicator";
 
 import styles from "./StatusBar.module.scss";
 
+import { invoke } from "@tauri-apps/api/core";
+import Button from "./ui/button";
+
+
 const StatusBar = () => {
     const [mcuConnected, setMCUConnected] = useState<boolean>(false);
     const [simConnectConnected, setSimConnectConnected] = useState<boolean>(false);
@@ -19,9 +23,10 @@ const StatusBar = () => {
 
     return (
         <div className={styles["root"]}>
+            <Button onClick={() => mcuConnected ? invoke("disconnect") : invoke("try_connect")} text={mcuConnected ? "Disconnect MCU" : "Connect MCU"} />
             <StatusIndicator status={mcuConnected ? "green" : "red"} text="MCU" />
             <StatusIndicator status={simConnectConnected ? "green" : "red"} text="SimConnect" />
-        </div>
+        </div >
     );
 }
 

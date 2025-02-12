@@ -1,0 +1,56 @@
+// <button style={{
+//     cursor: 'pointer',
+//     border: '1px solid var(--textPrimary)',
+//     borderRadius: '5px',
+//     backgroundColor: "var(--background)", color: 'var(--textPrimary)'
+// }} onClick={() => mcuConnected ? invoke("disconnect") : invoke("try_connect")}>{mcuConnected ? "Disconnect MCU" : "Connect MCU"}</button>
+
+.root {
+    height: 100%;
+    padding: 0 10px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--textPrimary);
+    border-radius: 100px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: var(--bgHighlight);
+    }
+
+    &:active {
+        background-color: var(--bgHighlight);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+
+    &:disabled:hover {
+        background-color: transparent;
+    }
+
+    &:disabled:active {
+        background-color: transparent;
+    }
+
+    &:disabled .btn-anim {
+        transition: none;
+    }
+
+    &:disabled .btn-anim:hover {
+        background-color: transparent;
+    }
+
+    &:disabled .btn-anim:active {
+        background-color: transparent;
+    }
+
+    &:disabled .btn-anim:disabled {
+        background-color: transparent;
+    }
+}

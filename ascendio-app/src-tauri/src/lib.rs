@@ -2,7 +2,9 @@ mod errors;
 mod functions;
 mod models;
 
-use tauri::{async_runtime::Mutex, Manager};
+use functions::serial::start_checking_for_device;
+use std::sync::Mutex;
+use tauri::Manager;
 
 use crate::{
     functions::{serial, sim_event},
@@ -29,11 +31,14 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             serial::get_serial_ports,
             serial::is_connected,
+            serial::try_connect,
+            serial::disconnect,
             sim_event::send_event
         ])
         .setup(|app| {
-            let app_context = Mutex::new(AppContext::new());
-            app.manage(app_context);
+            let ctx = AppContext::new();
+            app.manage(Mutex::new(ctx));
+            start_checking_for_device(app.handle().clone());
             Ok(())
         })
         .run(tauri::generate_context!())
