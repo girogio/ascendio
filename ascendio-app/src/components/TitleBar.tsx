@@ -1,4 +1,4 @@
-import WindowControls from "./ui/WindowControls";
+import WindowControls from "./WindowControls";
 
 import styles from "./TitleBar.module.scss";
 

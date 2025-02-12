@@ -1,17 +1,13 @@
+import { ButtonHTMLAttributes, PropsWithChildren } from "react";
+
 import styles from "./Button.module.scss";
 
-type ButtonProps = {
-    text: string,
-    onClick: () => void,
-    disabled?: boolean
-}
-
-const Button = ({ text, onClick, disabled }: ButtonProps) => {
+const Button = ({ children, ...props }: PropsWithChildren<ButtonHTMLAttributes<HTMLButtonElement>>) => {
     return (
-        <button className={styles["root"]} onClick={onClick} disabled={disabled}>
-            {text}
+        <button className={[props.className, styles["root"]].join(" ")} {...props}>
+            {children}
         </button>
     );
 }
 
-export default Button
+export default Button;
