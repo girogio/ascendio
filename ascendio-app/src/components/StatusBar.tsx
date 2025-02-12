@@ -10,10 +10,6 @@ import StatusIndicator from "./ui/StatusIndicator";
 
 import styles from "./StatusBar.module.scss";
 
-import { invoke } from "@tauri-apps/api/core";
-import Button from "./ui/button";
-
-
 const StatusBar = () => {
     const [mcuConnected, setMCUConnected] = useState<boolean>(false);
     const [simConnectConnected, setSimConnectConnected] = useState<boolean>(false);
