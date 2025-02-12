@@ -4,6 +4,8 @@ import { useTauriEvent } from "../hooks/UseTauriEvent";
 
 import { Events } from "../models/Events";
 
+import { mcuDisconnect, mcuTryConnect } from "../services/ConnectionService";
+
 import StatusIndicator from "./ui/StatusIndicator";
 
 import styles from "./StatusBar.module.scss";
@@ -17,8 +19,17 @@ const StatusBar = () => {
     useTauriEvent(Events.ASCENDIO_SIMCONNECT_CONNECTED, () => setSimConnectConnected(true));
     useTauriEvent(Events.ASCENDIO_SIMCONNECT_DISCONNECTED, () => setSimConnectConnected(false));
 
+    const handleConnect = () => {
+        if (mcuConnected) {
+            mcuDisconnect();
+        } else {
+            mcuTryConnect();
+        }
+    };
+
     return (
         <div className={styles["root"]}>
+            <button className={styles["connect-btn"]} onClick={handleConnect}>Connect</button>
             <StatusIndicator status={mcuConnected ? "green" : "red"} text="MCU" />
             <StatusIndicator status={simConnectConnected ? "green" : "red"} text="SimConnect" />
         </div>

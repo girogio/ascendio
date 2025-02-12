@@ -12,3 +12,19 @@
     align-items: center;
     gap: 16px;
 }
+
+.connect-btn {
+    outline: none;
+    border: none;
+    background: none;
+    border-radius: var(--borderRadius);
+    color: var(--textPrimary);
+    padding: 2px 8px;
+    transition: background-color 100ms var(--easingFunction);
+    font-size: 12px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: var(--bgHighlight);
+    }
+}
