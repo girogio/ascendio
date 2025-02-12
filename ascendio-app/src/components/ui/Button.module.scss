@@ -1,0 +1,16 @@
+.root {
+    outline: none;
+    border: none;
+    background-color: var(--btn);
+    color: var(--bgPage);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: var(--borderRadius);
+    transition: background-color 150ms var(--easingFunction);
+
+    &:hover {
+        cursor: pointer;
+        background-color: var(--btnHover);
+    }
+}
